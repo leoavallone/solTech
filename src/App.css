@@ -89,3 +89,14 @@ th {
 td {
   text-align: center; 
 }
+
+.pagination {
+  text-align: center;
+}
+
+.pagination button {
+  width: 80px;
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

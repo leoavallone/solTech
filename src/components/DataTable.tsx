@@ -1,40 +1,69 @@
-import React from 'react';
-const DataTable = () => {
-    const data = [
-      { date: '2018-11-16T09:48:39.000Z', consumption: 0.0 },
-      { date: '2018-11-16T09:49:00.000Z', consumption: 52.1 },
-      // Adicione os dados aqui
-    ];
-  
-    return (
+import React, { useState } from "react";
+
+const DataTable = (transactionsData) => {
+  const itemsPerPage = 10; // Número de itens por página
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Calcular o total de páginas
+  const totalPages = Math.ceil(transactionsData.data.length / itemsPerPage);
+
+  // Paginar os dados
+  const paginatedData = transactionsData.data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  return (
+    <div>
       <table>
         <thead>
           <tr>
             <th>Data da Transação</th>
+            <th>Estação</th>
             <th>Consumo</th>
-            <th>Contexto</th>
-            <th>Formato</th>
-            <th>Atividade</th>
-            <th>Localização</th>
+            <th>Tag</th>
+            <th>Serial</th>
+            <th>Status</th>
             <th>Unidade</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((row, index) => (
+          {paginatedData.map((row, index) => (
             <tr key={index}>
-              <td>{row.date}</td>
-              <td>{row.consumption}</td>
-              <td>Sample.Periodic</td>
-              <td>Raw</td>
-              <td>Energy.Active.Import.Register</td>
-              <td>Outlet</td>
-              <td>Wh</td>
+              <td>{row.dateStart}</td>
+              <td>{row.identity}</td>
+              <td>{row.value ?? 0}</td>
+              <td>{row.idTag}</td>
+              <td>{row.serialNumber}</td>
+              <td>{row.reason ?? "Null"}</td>
+              <td>kWh</td>
             </tr>
           ))}
         </tbody>
       </table>
-    );
-  };
-  
-  export default DataTable;
-  
+
+      {/* Controles de Paginação */}
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Anterior
+        </button>
+
+        <span>
+          Página {currentPage} de {totalPages}
+        </span>
+
+        <button
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Próxima
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default DataTable;

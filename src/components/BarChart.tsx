@@ -2,16 +2,15 @@ import React from "react"
 import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
-import sourceData from "../data/sourceData.json";
-export const BarChart = () => {
+export const BarChart = (dataChargesTransactions: any) => {
   return (
         <Bar
           data={{
-            labels: sourceData.map((data) => data.label),
+            labels:  dataChargesTransactions.data.map((data) => data.identity),
             datasets: [
               {
-                label: "Count",
-                data: sourceData.map((data) => data.value),
+                label: "Consumo em R$",
+                data:  dataChargesTransactions.data.map((data) => data.totalValue),
                 backgroundColor: [
                   "green",
                   "blue",
@@ -24,7 +23,7 @@ export const BarChart = () => {
           options={{
             plugins: {
               title: {
-                text: "Consumo por carregamento",
+                text: "Consumo por estação de carregamento",
               },
             },
           }}

@@ -3,24 +3,50 @@ import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { Doughnut } from "react-chartjs-2";
 
 import sourceData from "../data/sourceData.json";
-export const DoughnutChart = () => {
+export const DoughnutChart = (dataChargesTransactions: any) => {
+
+  const groupedData = Object.values(
+    dataChargesTransactions.data.reduce((acc, { reason }) => {
+        if (!acc[reason]) {
+            acc[reason] = { reason, count: 0 };
+        }
+        acc[reason].count++;
+        return acc;
+    }, {})
+  );
+
+  console.log(groupedData);
   return (
         <Doughnut
           data={{
-            labels: sourceData.map((data) => data.label),
+            labels: groupedData.map((data) => data.reason),
             datasets: [
               {
                 label: "Count",
-                data: sourceData.map((data) => data.value),
+                data: groupedData.map((data) => data.count),
                 backgroundColor: [
-                  "green",
-                  "blue",
-                  "#FF3030",
+                  "#ffcd56",
+                  "#FF6384",
+                  "#4BC0C0",
+                  "#FF9F40",
+                  "#9966FF",
+                  "#36A2EB",
+                  "#FFB9FF",
+                  '#FF55BB',
+                  "#7cffff",
+                  "#7C3D00"
                 ],
                 borderColor: [
-                  "green",
-                  "blue",
-                  "#FF3030",
+                  "#ffcd56",
+                  "#FF6384",
+                  "#4BC0C0",
+                  "#FF9F40",
+                  "#9966FF",
+                  "#36A2EB",
+                  "#FFB9FF",
+                  '#FF55BB',
+                  "#7cffff",
+                  "#7C3D00"
                 ],
               },
             ],
@@ -28,7 +54,7 @@ export const DoughnutChart = () => {
           options={{
             plugins: {
               title: {
-                text: "Revenue Sources",
+                text: "Ocorrências de consumo por status",
               },
             },
           }}
