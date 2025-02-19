@@ -21,6 +21,8 @@ export const App = () => {
   const [totalPerCharge, setTotalPerCharge] = useState([]);
   const [load, setLoad] = useState(true);
 
+  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICIxNWQ0NjNjMzg2YTgwN2I1MzA5M2YyZWZjNjE1ZDMyNTAyOGYxY2JmIiwgImlhdCIgOiAxNzQwMDAwNzYzLCAiZXhwIiA6IDE3NDAwMDQzNjN9.5THGV2B1sW--4bM33e5huFzIW6ScBj0f8U-QlbNuBCM'
+
   useEffect(() => {
     async function fetchTransactionData(identity: string): Promise<any> {
       try {
@@ -28,7 +30,7 @@ export const App = () => {
           { identity }, 
           {
             headers: {
-              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICJjMTVlMjFmNTMyMTA2OTFmOWYxZmYxMTA3ODMyNDEwOGU0OGMwN2YxIiwgImlhdCIgOiAxNzM5OTMxNzc4LCAiZXhwIiA6IDE3Mzk5MzUzNzh9.MkMX_DaN3tvZZc2i0SiFGGCvBwCwBf8P5Irqm6L52oU'
+              'Authorization': token
             }
           }
         );
@@ -47,7 +49,7 @@ export const App = () => {
       try {
         const response = await apiClient.get('/CentralSystem/ChargePointList', {
           headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICI1ZjJkNjg4ZjY1N2Q2ZjBmZjVjMjk5YmNmYWIzMThjZmZjYWJhMzBiIiwgImlhdCIgOiAxNzM4Njk5MDg4LCAiZXhwIiA6IDE3Mzg3MDI2ODh9.R9DZXn1FkURGDScyVGSx-nza2Q_BiWajf0r3NfjET3Y'
+            'Authorization': token
           }
         });
 
