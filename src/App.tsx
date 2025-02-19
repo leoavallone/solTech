@@ -5,7 +5,7 @@ import { LineChart } from "./components/LineChart";
 import { BarChart } from "./components/BarChart";
 import { DoughnutChart } from "./components/DoughnutChart";
 import DataTable from "./components/DataTable";
-import apiClient from "./services/api";
+import apiClient, { loginClient } from "./services/api";
 import { calTotal } from "./tools/calcs";
 
 defaults.maintainAspectRatio = false;
@@ -24,6 +24,15 @@ export const App = () => {
   const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICIxNWQ0NjNjMzg2YTgwN2I1MzA5M2YyZWZjNjE1ZDMyNTAyOGYxY2JmIiwgImlhdCIgOiAxNzQwMDAwNzYzLCAiZXhwIiA6IDE3NDAwMDQzNjN9.5THGV2B1sW--4bM33e5huFzIW6ScBj0f8U-QlbNuBCM'
 
   useEffect(() => {
+    async function auth(){
+      const response = await loginClient.post('/oauth2/token', {
+        grant_type:"password",
+        username:"demo",
+        password:"demo"
+      });
+
+      console.log('Retorno: ', response.data);
+    }
     async function fetchTransactionData(identity: string): Promise<any> {
       try {
         const response = await apiClient.post('/CentralSystem/TransactionList', 
@@ -91,6 +100,7 @@ export const App = () => {
     }
 
     fetchChargePoints();
+    auth();
   }, []);
 
   return (
