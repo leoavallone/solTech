@@ -21,7 +21,7 @@ export const App = () => {
   const [totalPerCharge, setTotalPerCharge] = useState([]);
   const [load, setLoad] = useState(true);
 
-  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICJjZTQxODc0ODIwMTU0OTMzMWRjMWY3NmRjYzQ2ODFmNDU3MGFiNDAxIiwgImlhdCIgOiAxNzQwMDIxNDA5LCAiZXhwIiA6IDE3NDAwMjUwMDl9.ZMtOdfLwC9D554TGBKuQZLC-WN8GxdLLLBlrkV6RCws'
+  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICI0MjdiMTkwZGUzZWMyMTM3ZmU0MTM4MmRkMTQyZjVlY2FmMzEwZjk2IiwgImlhdCIgOiAxNzQwMTY0ODQ3LCAiZXhwIiA6IDE3NDAxNjg0NDd9.UiD2N3HfGl8sv_w_k_3S8gyj1M5U-ZwbUILoNhOcnns'
 
   useEffect(() => {
     async function auth(){
