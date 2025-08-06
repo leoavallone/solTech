@@ -1,108 +1,131 @@
 import { useState } from "react";
-import { FaUser, FaLock, FaEnvelope, FaAddressCard, FaPhone, FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+    FaUser,
+    FaLock,
+    FaEnvelope,
+    FaAddressCard,
+    FaPhone,
+    FaEye,
+    FaEyeSlash
+} from "react-icons/fa";
 import "./cadastro.css";
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm, SubmitHandler } from "react-hook-form";
 
 type Inputs = {
-    nome: string
-    email: string
-    cpf: string
-    telefone: string
-    senha: string
-    confirmarSenha: string
-}
+    nome: string;
+    email: string;
+    cpf: string;
+    telefone: string;
+    senha: string;
+    confirmarSenha: string;
+};
 
 const Cadastro = () => {
     const {
         register,
         handleSubmit,
         watch,
-        formState: { errors },
-    } = useForm<Inputs>()
+        formState: { errors }
+    } = useForm<Inputs>();
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
-        console.log(watch("nome"))
-        let users: any = []
-    // Estados para armazenar as entradas do usuário
+    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const handleShowPassword = (flag: boolean) => {
-        return !flag
-    }
+    const handleShowPassword = (flag: boolean) => !flag;
 
     return (
         <div className="container">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>Cadastrar Usuários</h1>
+
                 <div className="input-field">
                     <input
                         type="text"
                         placeholder="Nome"
                         {...register("nome", { required: true })}
-                        className={errors.nome ? 'hasError' : 'registerField'}
+                        className={errors.nome ? "hasError" : ""}
                     />
                     <FaUser className="icon" />
+                    {errors.nome && <span className="infoErro">O Nome é obrigatório</span>}
                 </div>
-                {errors.nome && <span className='infoErro'>O Nome é obrigatório</span>}
+
                 <div className="input-field">
                     <input
                         type="text"
                         placeholder="E-mail"
                         {...register("email", { required: true })}
-                        className={errors.email ? 'hasError' : 'registerField'}
+                        className={errors.email ? "hasError" : ""}
                     />
                     <FaEnvelope className="icon" />
+                    {errors.email && <span className="infoErro">O Email é obrigatório</span>}
                 </div>
-                {errors.email && <span className='infoErro'>O Email é obrigatório</span>}
+
                 <div className="input-field">
                     <input
                         type="text"
                         placeholder="CPF"
                         {...register("cpf", { required: true })}
-                        className={errors.cpf ? 'hasError' : 'registerField'}
+                        className={errors.cpf ? "hasError" : ""}
                     />
                     <FaAddressCard className="icon" />
+                    {errors.cpf && <span className="infoErro">O CPF é obrigatório</span>}
                 </div>
-                {errors.cpf && <span className='infoErro'>O CPF é obrigatório</span>}
+
                 <div className="input-field">
                     <input
                         type="text"
                         placeholder="Telefone"
                         {...register("telefone", { required: true })}
-                        className={errors.telefone ? 'hasError' : 'registerField'}
+                        className={errors.telefone ? "hasError" : ""}
                     />
                     <FaPhone className="icon" />
+                    {errors.telefone && <span className="infoErro">O telefone é obrigatório</span>}
                 </div>
-                {errors.telefone && <span className='infoErro'>O telefone é obrigatório</span>}
+
                 <div className="input-field">
                     <input
-                        type={showPassword ? 'text' : 'password'}
+                        type={showPassword ? "text" : "password"}
                         placeholder="Senha"
                         {...register("senha", { required: true })}
-                        className={errors.senha ? 'hasError' : 'registerField'}
+                        className={errors.senha ? "hasError" : ""}
                     />
                     {showPassword ? (
-                        <FaEye className="icon" onClick={() => setShowPassword(handleShowPassword(showPassword))} />
+                        <FaEye
+                            className="icon"
+                            onClick={() => setShowPassword(handleShowPassword(showPassword))}
+                        />
                     ) : (
-                        <FaEyeSlash className="icon" onClick={() => setShowPassword(handleShowPassword(showPassword))} />
+                        <FaEyeSlash
+                            className="icon"
+                            onClick={() => setShowPassword(handleShowPassword(showPassword))}
+                        />
                     )}
+                    {errors.senha && <span className="infoErro">A senha é obrigatória</span>}
                 </div>
-                {errors.senha && <span className='infoErro'>A senha é obrigatória</span>}
+
                 <div className="input-field">
                     <input
-                        type={showConfirmPassword ? 'text' : 'password'}
+                        type={showConfirmPassword ? "text" : "password"}
                         placeholder="Confirmar senha"
                         {...register("confirmarSenha", { required: true })}
-                        className={errors.confirmarSenha ? 'hasError' : 'registerField'}
+                        className={errors.confirmarSenha ? "hasError" : ""}
                     />
                     {showConfirmPassword ? (
-                        <FaEye className="icon" onClick={() => setShowConfirmPassword(handleShowPassword(showConfirmPassword))} />
+                        <FaEye
+                            className="icon"
+                            onClick={() => setShowConfirmPassword(handleShowPassword(showConfirmPassword))}
+                        />
                     ) : (
-                        <FaEyeSlash className="icon" onClick={() => setShowConfirmPassword(handleShowPassword(showConfirmPassword))} />
+                        <FaEyeSlash
+                            className="icon"
+                            onClick={() => setShowConfirmPassword(handleShowPassword(showConfirmPassword))}
+                        />
                     )}
+                    {errors.confirmarSenha && <span className="infoErro">Confirme sua senha</span>}
                 </div>
-                {errors.confirmarSenha && <span className='infoErro'>Confirme sua senha</span>}
+
                 <button type="submit">cadastro</button>
             </form>
         </div>
