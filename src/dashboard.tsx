@@ -15,7 +15,7 @@ defaults.plugins.title.align = "start";
 defaults.plugins.title.font.size = 20;
 defaults.plugins.title.color = "black";
 
-export const App = () => {
+export const Dashboard = () => {
   const [chargePoints, setChargePoints] = useState([]);
   const [transactions, setTransactions] = useState<any>([]);
   const [totalPerCharge, setTotalPerCharge] = useState([]);
