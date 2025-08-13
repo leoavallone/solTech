@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const DataTable = (transactionsData) => {
+const DataTable = (transactionsData: any) => {
   const itemsPerPage = 10; // Número de itens por página
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -28,7 +28,7 @@ const DataTable = (transactionsData) => {
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((row, index) => (
+          {paginatedData.map((row: any, index: number) => (
             <tr key={index}>
               <td>{row.dateStart}</td>
               <td>{row.identity}</td>
