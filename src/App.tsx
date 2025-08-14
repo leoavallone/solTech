@@ -1,13 +1,11 @@
 import "./App.css";
-import CadastroUsuarios from "./cadastroUsuarios";
-import { Dashboard } from "./dashboard";
-import Login from "./login";
-import CadastroProprietarios from "./cadastroProprietarios";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
 
 export const App = () => {
   return (
     <div className="App">
-      <CadastroUsuarios />
+      <RouterProvider router={router} />
     </div>
   );
 }
