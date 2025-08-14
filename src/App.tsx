@@ -1,5 +1,5 @@
 import "./App.css";
-import Cadastro from "./cadastro";
+import CadastroUsuarios from "./cadastroUsuarios";
 import { Dashboard } from "./dashboard";
 import Login from "./login";
 import CadastroProprietarios from "./cadastroProprietarios";
@@ -7,7 +7,7 @@ import CadastroProprietarios from "./cadastroProprietarios";
 export const App = () => {
   return (
     <div className="App">
-      <Cadastro />
+      <CadastroUsuarios />
     </div>
   );
 }

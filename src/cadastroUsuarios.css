@@ -1,75 +1,99 @@
 .container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding-top: 100px;
     width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1em;
 }
 
-h1 {
-    color: #fff;
-    font-size: 28px;
+.container h2 {
     text-align: center;
+    font-size: 30px;
+    margin-bottom: 25px;
+    font-weight: 400;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #fff;
-    background-color: #0f2e5a;
+.card {
+    width: 100%;
+    max-width: 600px;
+    background: #efefef;
+    border-radius: 0.5em;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 1em;
+    margin: 0 auto;
+}
+
+h2,
+h3,
+label,
+select,
+option,
+th,
+td {
+    color: #000000;
+}
+
+
+.input-field {
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.input-field input {
+    width: 100%;
+    height: 50px;
+    background-color: #f6f6f6 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #f6f6f6 inset;
+    box-shadow: 0 0 0px 1000px #f6f6f6 inset;
+    color: #000000;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 0 45px 0 25px;
+    box-sizing: border-box;
+    letter-spacing: 2px;
+}
+
+.input-field input::placeholder {
+    color: #000000;
+    font-weight: 300;
+}
+
+.input-field .icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.input-field .infoErro {
+    position: absolute;
+    top: 55px;
+    left: 20px;
+    font-size: 12px;
+    color: #f00;
+}
+
+.container button {
+    width: 100%;
+    height: 45px;
+    background: #0f2e5a;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
     color: #fff;
-    max-width: 50%;
-    width: 400px;
-    margin-bottom: 20px;
-
-    .infoErro {
-        color: #fff;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    .hasError {
-        border: 2px solid #f00;
-    }
-
-.registerField {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    font-weight: 700;
+    text-shadow: none;
+    margin-top: 0px;
 }
 
-    & button {
-        margin-top: 10px;
-        border-radius: 30px;
-        background-color: #0384b7;
-        height: 40px;
-        border: none;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    & button:hover {
-        opacity: 0.8;
-    }
-
-    & input {
-        border: 2px solid #fff;
-        border-radius: 30px;
-        height: 40px;
-        background-color: #87CEEB;
-        color: #fff;
-        font-size: 16px;
-        padding-left: 10px;
-        outline: none;
-    }
-
-    .card {
-        justify-content: space-between;
-        background-color: #bb5016;
-        margin: 10px;
-        padding: 10px;
-        width: 400px;
-        border-radius: 10px;
-    }
+.hasError {
+    border: 2px solid #f00 !important;
 }
