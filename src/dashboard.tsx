@@ -41,26 +41,26 @@ const Dashboard = () => {
 
       console.log('Retorno: ', response.data);
     }
-    async function fetchTransactionData(identity: string): Promise<any> {
-      try {
-        const response = await apiClient.get('/charge_point/transaction/list', 
-          { identity }, 
-          {
-            headers: {
-              'Authorization': token
-            }
-          }
-        );
+    // async function fetchTransactionData(identity: string): Promise<any> {
+    //   try {
+    //     const response = await apiClient.get('/charge_point/transaction/list', 
+    //       { identity }, 
+    //       {
+    //         headers: {
+    //           'Authorization': token
+    //         }
+    //       }
+    //     );
 
-        if (response.data.TransactionList && response.data.TransactionList.length > 0) {
-          return response.data.TransactionList;
-        }
-      } catch (error) {
-        console.error(`Erro ao buscar transações para ${identity}:`, error);
-      }
+    //     if (response.data.TransactionList && response.data.TransactionList.length > 0) {
+    //       return response.data.TransactionList;
+    //     }
+    //   } catch (error) {
+    //     console.error(`Erro ao buscar transações para ${identity}:`, error);
+    //   }
 
-      return []; // Retorno seguro em caso de erro
-    }
+    //   return []; // Retorno seguro em caso de erro
+    // }
 
     async function fetchChargePoints() {
       try {
