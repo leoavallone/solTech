@@ -55,7 +55,7 @@
   padding: 1em;
 }
 
-.dataTable {
+/* .dataTable {
   width: 100%;
   height: 20rem;
   background-color: #efefef;
@@ -99,7 +99,7 @@ th {
 
 td {
   text-align: center; 
-}
+} */
 
 .pagination {
   text-align: center;

@@ -1,42 +1,47 @@
 import React, { useState } from "react";
+import "./css/DataTableCharge.css";
 
-const DataTableCharge = (chargeData: any) => {
+const DataTableCharge = (data: any) => {
   const itemsPerPage = 10; // Número de itens por página
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calcular o total de páginas
-  const totalPages = Math.ceil(chargeData.length / itemsPerPage);
+  const totalPages = Math.ceil(data.chargeData.length / itemsPerPage);
 
   // Paginar os dados
-  const paginatedData = chargeData.slice(
+  const paginatedData = data.chargeData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
   return (
-    <div>
-      <table>
+    <div className="table-container">
+      <table className="table">
         <thead>
           <tr>
-            <th>Nome da Estação</th>
-            <th>Descrição</th>
-            <th>Tipo de Conector</th>
-            <th>Modo de Operação</th>
+            <th>Estação</th>
+            <th>Tipo</th>
+            <th>Cliente</th>
+            <th>Fornecedor</th>
+            <th>Modelo</th>
             <th>Serial</th>
+            <th>Online</th>
+            <th>Data</th>
             <th>Status</th>
-            <th>Unidade</th>
           </tr>
         </thead>
         <tbody>
           {paginatedData.map((row: any, index: number) => (
             <tr key={index}>
               <td>{row.label ?? "Null"}</td>
-              <td>{row.chargerdescription ?? "Null"}</td>
-              <td>{row.typedescription ?? "Null"}</td>
-              <td>{row.modedescription ?? "Null"}</td>
-              <td>{row.serialNumber ?? "Null"}</td>
-              <td>{row.statecode ?? "Null"}</td>
-              <td>kWh</td>
+              <td>{row.typename ?? "Null"}</td>
+              <td>{row.clientname ?? "Null"}</td>
+              <td>{row.vendor ?? "Null"}</td>
+              <td>{row.modelname ?? "Null"}</td>
+              <td>{row.serialnumber ?? "Null"}</td>
+              <td>{row.connected ?? "Null"}</td>
+              <td>{row.connectionupdate ?? "Null"}</td>
+              <td>{row.statelabel ?? "Null"}</td>
             </tr>
           ))}
         </tbody>

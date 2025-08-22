@@ -22,25 +22,25 @@ const Dashboard = () => {
   const [totalPerCharge, setTotalPerCharge] = useState([]);
   const [load, setLoad] = useState(true);
 
-  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICJiMzEwYWZiYWJkODY5ZjcwM2Q2NzdiZmU2ZGU2MTZjMTdjNmJjYTExIiwgImlhdCIgOiAxNzU1Nzk1NTE4LCAiZXhwIiA6IDE3NTU3OTkxMTh9.ajlJJ1xJQKlt8xOwboNvLq9gELPnXLy2SHP8pc0aCoo';
+  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICIxYzQ3OTRkZjIzYjhkMzdiYzM0MzRhOGZjODE1NWM3YmYwN2QxNzg0IiwgImlhdCIgOiAxNzU1ODcwMTcwLCAiZXhwIiA6IDE3NTU4NzM3NzB9.W5Q2dBMSkhbw0srFhC0elY11y-Mf-lqhNaluioLq5KI';
 
   useEffect(() => {
-    async function auth(){
-      const response = await loginClient.post('/oauth2/token', {
-        grant_type: 'password',
-        username: 'demo',
-        password: 'demo',
-      },
-      {
-        headers: {
-          'Origin': 'https://cs.ocpp-css.com',
-          'Referer': 'https://cs.ocpp-css.com/',
-        },
-      }
-    );
+    // async function auth(){
+    //   const response = await loginClient.post('/oauth2/token', {
+    //     grant_type: 'password',
+    //     username: 'demo',
+    //     password: 'demo',
+    //   },
+    //   {
+    //     headers: {
+    //       'Origin': 'https://cloud.ocpp-css.com',
+    //       'Referer': 'https://cloud.ocpp-css.com/crm',
+    //     },
+    //   }
+    // );
 
-      console.log('Retorno: ', response.data);
-    }
+    //   console.log('Retorno: ', response.data);
+    // }
     // async function fetchTransactionData(identity: string): Promise<any> {
     //   try {
     //     const response = await apiClient.get('/charge_point/transaction/list', 
@@ -64,15 +64,13 @@ const Dashboard = () => {
 
     async function fetchChargePoints() {
       try {
-        const id = '9b4cadb6-e896-4af6-8b34-986c913c1b3e'
-        const response = await apiClient.get(`/charge_point/get?id=${id}`, {
+        const response = await apiClient.get(`/charge_point/list`, {
           headers: {
             'Authorization': token
           }
         });
-        console.log(response.data);
-        if (response.data.ChargePointList && response.data.ChargePointList.length > 0) {
-          setChargePoints(response.data.connectors);
+        if (response.data && response.data.length > 0) {
+          setChargePoints(response.data);
 
           // Criando um array de promessas
           // const transactionPromises = response.data.ChargePointList.map((cpl: any) => 
@@ -109,7 +107,7 @@ const Dashboard = () => {
     }
 
     fetchChargePoints();
-    auth();
+    //auth();
   }, []);
 
   return (
@@ -119,7 +117,7 @@ const Dashboard = () => {
           <div className="dataCard line">
             <LineChart />
           </div>
-            {/* <DataTableCharge chargeData={chargePoints}/> */}
+            {chargePoints.length > 0 && <DataTableCharge chargeData={chargePoints}/>}
           {!load &&
             <>
               <div className="twoColumns">
