@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { defaults } from "chart.js/auto";
-import "./App.css";
+import "./dashboard.css";
 import { LineChart } from "./components/LineChart";
 import { BarChart } from "./components/BarChart";
 import { DoughnutChart } from "./components/DoughnutChart";
 import DataTable from "./components/DataTable";
 import apiClient, { loginClient } from "./services/api";
 import { calTotal } from "./tools/calcs";
+import DataTableCharge from "./components/DataTableCharge";
 
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
@@ -21,7 +22,7 @@ const Dashboard = () => {
   const [totalPerCharge, setTotalPerCharge] = useState([]);
   const [load, setLoad] = useState(true);
 
-  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICJiZThiMjhjNDI1NzA5ZWNkNTg2YjNiMTc3ODg4NmJlMDQwMDEyMGQ4IiwgImlhdCIgOiAxNzQ5MjExNjYwLCAiZXhwIiA6IDE3NDkyMTUyNjB9.JXkMka8hmHWJAWX0bfpu80CJY0hEAy8eBUleFY-xfyk';
+  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICJiMzEwYWZiYWJkODY5ZjcwM2Q2NzdiZmU2ZGU2MTZjMTdjNmJjYTExIiwgImlhdCIgOiAxNzU1Nzk1NTE4LCAiZXhwIiA6IDE3NTU3OTkxMTh9.ajlJJ1xJQKlt8xOwboNvLq9gELPnXLy2SHP8pc0aCoo';
 
   useEffect(() => {
     async function auth(){
@@ -42,7 +43,7 @@ const Dashboard = () => {
     }
     async function fetchTransactionData(identity: string): Promise<any> {
       try {
-        const response = await apiClient.post('/CentralSystem/TransactionList', 
+        const response = await apiClient.get('/charge_point/transaction/list', 
           { identity }, 
           {
             headers: {
@@ -63,43 +64,44 @@ const Dashboard = () => {
 
     async function fetchChargePoints() {
       try {
-        const response = await apiClient.get('/CentralSystem/ChargePointList', {
+        const id = '9b4cadb6-e896-4af6-8b34-986c913c1b3e'
+        const response = await apiClient.get(`/charge_point/get?id=${id}`, {
           headers: {
             'Authorization': token
           }
         });
-
+        console.log(response.data);
         if (response.data.ChargePointList && response.data.ChargePointList.length > 0) {
-          setChargePoints(response.data.ChargePointList);
+          setChargePoints(response.data.connectors);
 
           // Criando um array de promessas
-          const transactionPromises = response.data.ChargePointList.map((cpl: any) => 
-            fetchTransactionData(cpl.Identity)
-          );
+          // const transactionPromises = response.data.ChargePointList.map((cpl: any) => 
+          //   fetchTransactionData(cpl.Identity)
+          // );
 
           // Aguarde todas as requisições finalizarem antes de atualizar o estado
-          const transactionsData = (await Promise.all(transactionPromises)).flat();
-          setTransactions(transactionsData);
-          console.log('Data: ', transactionsData);
+          // const transactionsData = (await Promise.all(transactionPromises)).flat();
+          // setTransactions(transactionsData);
+          // console.log('Data: ', transactionsData);
 
-          const summarizedTransactions = transactionsData.reduce((acc, transaction) => {
-            const existingEntry = acc.find(entry => entry.identity === transaction.identity);
+          // const summarizedTransactions = transactionsData.reduce((acc, transaction) => {
+          //   const existingEntry = acc.find(entry => entry.identity === transaction.identity);
             
-            if (existingEntry) {
-              existingEntry.totalValue += transaction.value;
-            } else {
-              acc.push({
-                identity: transaction.identity,
-                totalValue: transaction.value
-              });
-            }
+          //   if (existingEntry) {
+          //     existingEntry.totalValue += transaction.value;
+          //   } else {
+          //     acc.push({
+          //       identity: transaction.identity,
+          //       totalValue: transaction.value
+          //     });
+          //   }
             
-            return acc;
-          }, []);
+            //return acc;
+          //}, []);
           
           //console.log(summarizedTransactions);
-          setTotalPerCharge(summarizedTransactions);
-          setLoad(false);
+          //setTotalPerCharge(summarizedTransactions);
+          //setLoad(false);
         }
       } catch (error) {
         console.error("Erro ao buscar charge points:", error);
@@ -111,28 +113,36 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="App">
-      {!load &&
-        <>
-          <div className="twoColumns">
-            <div className="dataCard doughnut">
-              <DoughnutChart data={transactions}/>
-            </div>
-
-            <div className="dataCard bar">
-              <BarChart data={totalPerCharge} />
-            </div>
-          </div>
-
+    <div className="bgNoAuth">
+      <div className="container">
+        <div className="card">
           <div className="dataCard line">
             <LineChart />
           </div>
+            {/* <DataTableCharge chargeData={chargePoints}/> */}
+          {!load &&
+            <>
+              <div className="twoColumns">
+                <div className="dataCard doughnut">
+                  <DoughnutChart data={transactions}/>
+                </div>
 
-          <div className="dataCard dataTable">
-            <DataTable data={transactions}/>
-          </div>
-        </>
-      }
+                <div className="dataCard bar">
+                  <BarChart data={totalPerCharge} />
+                </div>
+              </div>
+
+              <div className="dataCard line">
+                <LineChart />
+              </div>
+
+              <div className="dataCard dataTable">
+                <DataTable data={transactions}/>
+              </div>
+            </>
+          }
+        </div>
+      </div>
     </div>
   );
 };

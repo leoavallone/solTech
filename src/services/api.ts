@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'https://cs.ocpp-css.com/api/v1',
+  baseURL: 'https://ocpp-css.com/api/v1',
 });
 
 export const loginClient = axios.create({

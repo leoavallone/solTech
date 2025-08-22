@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
   // Estados para armazenar as entradas do usuário
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   // Função que é chamada quando o formulário é enviado
   const handleSubmit = (event: any) => {
     // Impede que a página seja recarregada
     event.preventDefault();
-
     // Faz o console log das credenciais do usuário
     console.log("Dados de Login:", { username, password });
+    navigate("/dashboard");
   };
 
   return (
@@ -50,11 +51,11 @@ const Login = () => {
             <a href="#">Esqueceu sua senha?</a>
           </div>
           <button type="submit">Login</button>
-          <div className="signup-link">
+          {/* <div className="signup-link">
             <p>
               Não tem uma conta? <a href="#">Registar</a>{" "}
             </p>
-          </div>
+          </div> */}
         </form>
       </div>
     </div>
