@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./login.css";
 
 const Login = () => {
   // Estados para armazenar as entradas do usuário
