@@ -1,13 +1,11 @@
 .container {
   width: 100%;
-  max-width: 900px;
   margin: 0 auto;
   padding: 1em;
 }
 
 .card {
   width: 100%;
-  max-width: 900px;
   background: #efefef;
   border-radius: 0.5em;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -99,7 +97,7 @@ th {
 
 td {
   text-align: center; 
-} */
+} 
 
 .pagination {
   text-align: center;
@@ -111,3 +109,4 @@ td {
   margin-left: 10px;
   margin-right: 10px;
 }
+*/

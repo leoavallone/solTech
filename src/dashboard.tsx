@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [totalPerCharge, setTotalPerCharge] = useState([]);
   const [load, setLoad] = useState(true);
 
-  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICIxYzQ3OTRkZjIzYjhkMzdiYzM0MzRhOGZjODE1NWM3YmYwN2QxNzg0IiwgImlhdCIgOiAxNzU1ODcwMTcwLCAiZXhwIiA6IDE3NTU4NzM3NzB9.W5Q2dBMSkhbw0srFhC0elY11y-Mf-lqhNaluioLq5KI';
+  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICJiMWFiMWYxOGI4NTI0MjM1YmFiN2JjMGE0MzQyYmZkOTQzZDczODk4IiwgImlhdCIgOiAxNzU1ODg3MDg1LCAiZXhwIiA6IDE3NTU4OTA2ODV9.xAMsU3fLEJmP2Dayk0d_DfhhsaItbBwlamZhRfYtPmE';
 
   useEffect(() => {
     // async function auth(){
@@ -71,7 +71,7 @@ const Dashboard = () => {
         });
         if (response.data && response.data.length > 0) {
           setChargePoints(response.data);
-
+          setLoad(false);
           // Criando um array de promessas
           // const transactionPromises = response.data.ChargePointList.map((cpl: any) => 
           //   fetchTransactionData(cpl.Identity)
@@ -114,28 +114,21 @@ const Dashboard = () => {
     <div className="bgNoAuth">
       <div className="container">
         <div className="card">
-          <div className="dataCard line">
-            <LineChart />
-          </div>
-            {chargePoints.length > 0 && <DataTableCharge chargeData={chargePoints}/>}
+          
           {!load &&
             <>
               <div className="twoColumns">
                 <div className="dataCard doughnut">
-                  <DoughnutChart data={transactions}/>
+                  {/* <DoughnutChart data={transactions}/> */}
+                  <DoughnutChart />
                 </div>
 
                 <div className="dataCard bar">
-                  <BarChart data={totalPerCharge} />
+                  <LineChart />
                 </div>
               </div>
-
-              <div className="dataCard line">
-                <LineChart />
-              </div>
-
               <div className="dataCard dataTable">
-                <DataTable data={transactions}/>
+                {chargePoints.length > 0 && <DataTableCharge chargeData={chargePoints}/>}
               </div>
             </>
           }

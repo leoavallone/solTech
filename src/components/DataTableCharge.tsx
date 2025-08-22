@@ -39,7 +39,7 @@ const DataTableCharge = (data: any) => {
               <td>{row.vendor ?? "Null"}</td>
               <td>{row.modelname ?? "Null"}</td>
               <td>{row.serialnumber ?? "Null"}</td>
-              <td>{row.connected ?? "Null"}</td>
+              <td>{(row.connected) ? "Sim" : "Não"}</td>
               <td>{row.connectionupdate ?? "Null"}</td>
               <td>{row.statelabel ?? "Null"}</td>
             </tr>
