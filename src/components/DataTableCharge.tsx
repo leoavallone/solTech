@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import dayjs from "dayjs";
 import "./css/DataTableCharge.css";
 
 const DataTableCharge = (data: any) => {
@@ -36,11 +37,11 @@ const DataTableCharge = (data: any) => {
               <td>{row.label ?? "Null"}</td>
               <td>{row.typename ?? "Null"}</td>
               <td>{row.clientname ?? "Null"}</td>
-              <td>{row.vendor ?? "Null"}</td>
+              <td>{row.vendorname ?? "Null"}</td>
               <td>{row.modelname ?? "Null"}</td>
               <td>{row.serialnumber ?? "Null"}</td>
               <td>{(row.connected) ? "Sim" : "Não"}</td>
-              <td>{row.connectionupdate ?? "Null"}</td>
+              <td>{dayjs(row.connectionupdate).add(5, "day").format("DD/MM/YYYY HH:mm") ?? "Null"}</td>
               <td>{row.statelabel ?? "Null"}</td>
             </tr>
           ))}
