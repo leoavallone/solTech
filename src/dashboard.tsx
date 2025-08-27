@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [totalPerCharge, setTotalPerCharge] = useState([]);
   const [load, setLoad] = useState(true);
 
-  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICIyNTQyYTYxMDJkZjEzNDgzZGUyMjBhNmU5Njk2NTg5OWIwYWQ3NGNlIiwgImlhdCIgOiAxNzU1ODkxMzk0LCAiZXhwIiA6IDE3NTU4OTQ5OTR9.6kGA4UMEkkXbpor3iIf0v8pNbatJ-Q4iKYQ5cVuA6qw';
+  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICIxOGI0MGM2YmQ5YWY3NzY1MjJhMjI1MTY4YjhmN2Q2YjIzZWZhMGY4IiwgImlhdCIgOiAxNzU2Mjk5NjY1LCAiZXhwIiA6IDE3NTYzMDMyNjV9.mVH8FPvpaPbrb_lNeHFmYI6YTcQ3OgS_z-TDBU-4ORQ';
 
   useEffect(() => {
     // async function auth(){
