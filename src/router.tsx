@@ -1,6 +1,7 @@
 // src/router.tsx (lazy)
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
+import StationDashboard from "./detalhesEstacao";
 
 const Login = React.lazy(() => import("./login"));
 const Dashboard = React.lazy(() => import("./dashboard"));
@@ -17,5 +18,8 @@ export const router = createBrowserRouter([
   { path: "/dashboard", element: withSuspense(<Dashboard />) },
   { path: "/cadastro/usuarios", element: withSuspense(<CadastroUsuarios />) },
   { path: "/cadastro/proprietarios", element: withSuspense(<CadastroProprietarios />) },
+  { path: "/dashboard/estacoes", element: withSuspense(<StationDashboard />) },
   { path: "*", element: <h1 style={{padding:24}}>404 - Página não encontrada</h1> },
 ]);
+
+
