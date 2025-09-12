@@ -1,0 +1,86 @@
+.notificacao-container {
+  padding: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.notificacao-title {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;          
+  text-shadow: none;  
+}
+
+.notificacao-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.notificacao-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.notificacao-th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  color: #000;        
+  background: #f6f7f9;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  text-shadow: none;
+}
+
+.created-col {
+  width: 220px;
+  color: #000;
+}
+
+span {
+  color: #000;
+    text-shadow: none;
+}
+
+.row-even {
+  background: #fff;
+}
+
+.row-odd {
+  background: #fafafa;
+}
+
+.notificacao-td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #000;       
+  border-bottom: 1px solid #f0f1f3;
+  text-shadow: none;   
+}
+
+.mono {
+  font-family: monospace;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sort-icon {
+  font-size: 10px;
+  opacity: 0.8;
+  color: #000;
+}
