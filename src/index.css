@@ -4,3 +4,7 @@
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
 }
+
+.css-1lwhjos-MuiPaper-root-MuiDrawer-paper{
+  background-color: #1976d2 !important;
+}

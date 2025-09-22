@@ -20,6 +20,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SettingsIcon from "@mui/icons-material/Settings";
+import HomeIcon from "@mui/icons-material/Home";
+import PeopleIcon from "@mui/icons-material/People";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
 
@@ -95,9 +97,10 @@ const Main = styled("main", {
 }));
 
 const menuItems = [
-  { label: "Dashboard", icon: <DashboardIcon />, to: "/" },
-  { label: "Configurações", icon: <SettingsIcon />, to: "/settings" },
-  { label: "Sair", icon: <ExitToAppIcon />, to: "/logout" },
+  { label: "Dashboard", icon: <DashboardIcon />, to: "/dashboard" },
+  { label: "Usuários", icon: <PeopleIcon />, to: "/cadastro/usuarios" },
+  { label: "Proprietarios", icon: <SettingsIcon />, to: "/cadastro/proprietarios" },
+  { label: "Sair", icon: <ExitToAppIcon />, to: "/login" },
 ];
 
 export default function AppLayout() {
@@ -136,12 +139,12 @@ export default function AppLayout() {
           </IconButton>
 
           <Typography variant="h6" noWrap component="div">
-            Meu App
+            Sistema de Gestão de Carregadores Elétricos
           </Typography>
         </Toolbar>
       </AppBar>
 
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} style={{ backgroundColor: "#1976d2", color: "#fff" }}>
         <Toolbar />
         <Divider />
         <List>

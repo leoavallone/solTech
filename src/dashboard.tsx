@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [totalPerCharge, setTotalPerCharge] = useState([]);
   const [load, setLoad] = useState(true);
 
-  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICJjYTlkMzZiYTMxYThhM2IzMWQzYjIwMzY2NDY2M2M3MDhjOWI4YTU2IiwgImlhdCIgOiAxNzU2MTMwMzI5LCAiZXhwIiA6IDE3NTYxMzM5Mjl9.epm-ZFnpKxMD2G4OrIkUji5jNwtSXCsyUVdP290Nf-8';
+  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICJmZGY3YzcyZjM1ZmMzMzNkZWI5MDMxMDU3YWJlZmNlODAyZDI0ZTU3IiwgImlhdCIgOiAxNzU2MTc4OTQ2LCAiZXhwIiA6IDE3NTYxODI1NDZ9.D13O62PP92-vvgNtOzGWfedGnfS1HIChruGjM_vfylc';
 
   useEffect(() => {
     // async function auth(){
