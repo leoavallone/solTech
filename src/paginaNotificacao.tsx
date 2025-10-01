@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import "./PaginaNotificacao.css";
+import apiClient from "./services/api";
 
 export type Notice = {
   created: string;
@@ -19,6 +20,7 @@ const MOCK: Notice[] = [
 export default function PaginaNotificacao() {
   const [rows] = useState<Notice[]>(MOCK);
   const [sortAsc, setSortAsc] = useState(false);
+  const [notifcationList, setNotificationList] = useState<Notice[]>([]);
 
   const sorted = useMemo(() => {
     const copy = [...rows];
@@ -35,6 +37,32 @@ export default function PaginaNotificacao() {
     );
     return copy;
   }, [rows, sortAsc]);
+
+  const getNotification = async () => {
+    const { data: notifications } = await apiClient.get('/notice/list', {
+    headers: {
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICIyNDI3NmE2MWUwMzA5NmVkN2EyZDQ2ZGZkZDc3MTEyZmExNGMxMzdmIiwgImlhdCIgOiAxNzU5MTgxMjU0LCAiZXhwIiA6IDE3NTkxODQ4NTR9.WoW01202Ul2pb8_t8daNBb5vF5zFU1XcCTdAGRlscgQ'
+    }
+  });
+    if(notifications.length > 0){
+      let notList: ((prevState: Notice[]) => Notice[]) | { created: any; text: any; }[] = []
+      notifications.forEach((notification: {
+        data: any; created: any; text: any; 
+}) => {
+        notList.push({
+          created: notification.created,
+          text: notification?.data?.message?.body
+        })
+        
+      });
+      console.log(notList)
+      setNotificationList(notList)
+    }
+  }
+
+  useEffect(() => {
+    getNotification();
+  }, []);
 
   return (
     <div className="notificacao-container">
@@ -57,7 +85,7 @@ export default function PaginaNotificacao() {
             </tr>
           </thead>
           <tbody>
-            {sorted.map((n, i) => (
+            {notifcationList.map((n, i) => (
               <tr
                 key={`${n.created}-${i}`}
                 className={i % 2 === 0 ? "row-even" : "row-odd"}
