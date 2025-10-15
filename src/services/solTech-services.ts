@@ -3,16 +3,10 @@ import { ISignUpData } from "../interfaces/signup.interfaces";
 import { ISignInData } from "../interfaces/sign.interfaces";
 import { sign } from "chart.js/helpers";
 
-const signInPath = "/user/signin";
+const signInPath = "/auth";
 const signUpPath = "/user/create";
 const signIn = async (data: ISignInData): Promise<any> => {
-    const formData = new FormData();
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-
-    return await apiClient.post(`${signInPath}`, formData, {
-        headers: { "x-api-token": "bc22997835be3d139056f134d1b8cd37d89679c3", "Content-Type": "application/json" },
-    });
+    return await apiClient.post(`${signInPath}`, data);
 };
 
 const signUp = async (data: ISignUpData): Promise<any> => {

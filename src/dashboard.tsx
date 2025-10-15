@@ -8,6 +8,7 @@ import DataTable from "./components/DataTable";
 import apiClient, { loginClient } from "./services/api";
 import { calTotal } from "./tools/calcs";
 import DataTableCharge from "./components/DataTableCharge";
+import { useAuth } from "./context/AuthContext";
 
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
@@ -21,52 +22,15 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState<any>([]);
   const [totalPerCharge, setTotalPerCharge] = useState([]);
   const [load, setLoad] = useState(true);
-
-  const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiIDogImFjY291bnRzLm9jcHAtY3NzLmNvbSIsICJhdWQiIDogIndlYi1vY3BwLWNzcy5jb20iLCAic3ViIiA6ICI0N2JmYTI2YjA3YWI4ODVhODM5ZGM3MDAyY2FlN2M4OGZlNjM5ZmJiIiwgImlhdCIgOiAxNzU5MTc3ODIyLCAiZXhwIiA6IDE3NTkxODE0MjJ9.3skhwE35M8zMOQdo7LgLSyd2ihWnA0EatTaN3tPvZRw';
-
+  const { user } = useAuth();
+  const token = user.access_ocpp_token;
+  
   useEffect(() => {
-    // async function auth(){
-    //   const response = await loginClient.post('/oauth2/token', {
-    //     grant_type: 'password',
-    //     username: 'demo',
-    //     password: 'demo',
-    //   },
-    //   {
-    //     headers: {
-    //       'Origin': 'https://cloud.ocpp-css.com',
-    //       'Referer': 'https://cloud.ocpp-css.com/crm',
-    //     },
-    //   }
-    // );
-
-    //   console.log('Retorno: ', response.data);
-    // }
-    // async function fetchTransactionData(identity: string): Promise<any> {
-    //   try {
-    //     const response = await apiClient.get('/charge_point/transaction/list', 
-    //       { identity }, 
-    //       {
-    //         headers: {
-    //           'Authorization': token
-    //         }
-    //       }
-    //     );
-
-    //     if (response.data.TransactionList && response.data.TransactionList.length > 0) {
-    //       return response.data.TransactionList;
-    //     }
-    //   } catch (error) {
-    //     console.error(`Erro ao buscar transações para ${identity}:`, error);
-    //   }
-
-    //   return []; // Retorno seguro em caso de erro
-    // }
-
     async function fetchChargePoints() {
       try {
-        const response = await apiClient.get(`/charge_point/list`, {
+        const response = await loginClient.post(`/charge_point/list`,'', {
           headers: {
-            'Authorization': token
+            'Authorization': `Bearer ${token}`
           }
         });
         if (response.data && response.data.length > 0) {

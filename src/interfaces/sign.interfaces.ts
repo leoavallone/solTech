@@ -4,7 +4,7 @@ export interface ISignInData {
 }
 export interface LoginResponse {
     type: string;
-    token: string;
-    username: string;
+    access_token: string;
+    access_ocpp_token: string;
     // subscription: SubscriptionData;
 }

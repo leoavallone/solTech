@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import { useAuth } from "./context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { ISignInData } from "./interfaces/sign.interfaces";
 import { useForm } from "react-hook-form";
@@ -12,7 +13,8 @@ const Login = () => {
   const [load, setLoad] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('Ocorreu um erro ao executar a operação, contate o suporte');
-  const { user, signIn } = useAuth();
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       email: "",
@@ -20,21 +22,23 @@ const Login = () => {
     },
   });
   // Função que é chamada quando o formulário é enviado
-  const handleSignIn = async (data: ISignInData) => {
+  const handleSignIn = async () => {
     setLoad(true);
-    const loginAction = await signIn(data);
+    const loginAction = await signIn({email: username, password: password});
     if (!loginAction) {
       setLoad(false);
       setMessage("Usuário ou senha inválidos");
       setOpen(true);
+    }else{
+      setLoad(false);
+      navigate("/dashboard");
     }
-    setLoad(false);
   }
 
   return (
     <div className="bgAuth">
       <div className="container">
-        <form onSubmit={handleSubmit((data: any) => { handleSignIn(data) })}>
+        <form onSubmit={handleSubmit((data: any) => { handleSignIn() })}>
           <h1>Acesse o sistema</h1>
           <div className="input-field">
             <input
@@ -64,7 +68,7 @@ const Login = () => {
             </label>
             <a href="#">Esqueceu sua senha?</a>
           </div>
-          <button type="submit" onClick={() => handleSubmit}>Login</button>
+          <button type="submit" onClick={() => handleSubmit} disabled={load}>{load ? 'Aguarde' : 'Login'}</button>
           <div className="signup-link">
             <p>
               Não tem uma conta? <a href="#">Registar</a>{" "}
