@@ -5,7 +5,7 @@ import { LineChart } from "./components/LineChart";
 import { BarChart } from "./components/BarChart";
 import { DoughnutChart } from "./components/DoughnutChart";
 import DataTable from "./components/DataTable";
-import apiClient, { loginClient } from "./services/api";
+import apiClient, { cloudOcpp } from "./services/api";
 import { calTotal } from "./tools/calcs";
 import DataTableCharge from "./components/DataTableCharge";
 import { useAuth } from "./context/AuthContext";
@@ -28,7 +28,7 @@ const Dashboard = () => {
   useEffect(() => {
     async function fetchChargePoints() {
       try {
-        const response = await loginClient.post(`/charge_point/list`,'', {
+        const response = await cloudOcpp.post(`/CentralSystem/ChargePointList`,'', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
