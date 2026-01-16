@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { useAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import Logo from './assets/2btech-logo.png'
 import { ISignInData } from "./interfaces/sign.interfaces";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-  // Estados para armazenar as entradas do usuário
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [load, setLoad] = useState<boolean>(false);
@@ -21,7 +21,7 @@ const Login = () => {
       password: "",
     },
   });
-  // Função que é chamada quando o formulário é enviado
+
   const handleSignIn = async () => {
     setLoad(true);
     const loginAction = await signIn({email: username, password: password});
@@ -36,45 +36,78 @@ const Login = () => {
   }
 
   return (
-    <div className="bgAuth">
-      <div className="container">
-        <form onSubmit={handleSubmit((data: any) => { handleSignIn() })}>
-          <h1>Acesse o sistema</h1>
-          <div className="input-field">
-            <input
-              type="text"
-              placeholder="E-mail"
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <FaUser className="icon" />
-          </div>
-          <div className="input-field">
-            <input
-              type="password"
-              placeholder="Senha"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <FaLock className="icon" />
-          </div>
+    <div className="loginContainer">
+      <img src={Logo} className="loginLogo" />
+      <div className="loginContainerRow">
+        <div className="leftSection">
+          <h1 className="loginTitle">Entrar</h1>
+          <div>
+          <form onSubmit={handleSubmit((data: any) => { handleSignIn() })}>
+            <div className="loginInputSection">
+              <input
+                type="text"
+                placeholder="E-mail:"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="loginInput"
+              />
+            </div>
 
-          <div className="recall-forget">
-            <label>
-              <input type="checkbox" />
-              Lembre de mim
-            </label>
-            <a href="#">Esqueceu sua senha?</a>
+            <div className="loginInputSection">
+              <input
+                type="password"
+                placeholder="Senha:"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="loginInput"
+              />
+            </div>
+
+            <div className="loginLinkSection">
+              <a className="loginLink" href="#">
+                Esqueceu sua senha?
+              </a>
+            </div>
+
+            <button
+              type="submit" 
+              onClick={() => handleSubmit} 
+              disabled={load}
+              className="loginButton"
+            >
+              {load ? 'AGUARDE...' : 'ENTRAR'}
+            </button>
+          </form>
           </div>
-          <button type="submit" onClick={() => handleSubmit} disabled={load}>{load ? 'Aguarde' : 'Login'}</button>
-          <div className="signup-link">
-            <p>
-              Não tem uma conta? <a href="#">Registar</a>{" "}
-            </p>
-          </div> 
-        </form>
+        </div>
+
+        <div className="rightSection">
+          <h2 className="loginSubTitle">
+            Bem vindo a<br />2BCharge
+          </h2>
+
+          <p className="loginText">
+            Insira seus dados e comece sua mensurar<br /> suas recargas conosco!
+          </p>
+
+          <button 
+            onClick={() => console.log('Criar conta')}
+            className="loginButtonSecoundary"
+          >
+            CRIAR CONTA
+          </button>
+
+          <div className="socialContainer">
+            <a href="#" className="socialButton">
+              <FaInstagram />
+            </a>
+            <a href="#" className="socialButton">
+              <FaWhatsapp />
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
