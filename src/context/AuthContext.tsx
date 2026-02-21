@@ -4,12 +4,10 @@ import { ISignUpData } from "../interfaces/signup.interfaces";
 import SoulTechServices from "../services/solTech-services";
 
 interface UserData {
-    username: string;
-    // userPlan: SubscriptionData
     authkey: string;
-    token: string;
+    access_token: string;
+    access_ocpp_token: string;
     loginTime: string;
-    isAdmin: string;
 }
 
 interface AuthContextData {
@@ -20,11 +18,9 @@ interface AuthContextData {
 
 interface AuthState {
     authkey: string;
-    username: string;
-    token: string;
+    access_token: string;
+    access_ocpp_token: string;
     loginTime: string;
-    //subscription: SubscriptionData;
-    isAdmin: string
 }
 
 interface Props {
@@ -35,21 +31,17 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC<Props> = ({ children }) => {
     const [data, setData] = useState<AuthState>(() => {
-        const token = localStorage.getItem("@solTech:token");
-        const username = localStorage.getItem("@solTech:username");
-        //const subscription = localStorage.getItem("@solTech:subscription");
-        const authkey = localStorage.getItem("@solTech:authkey");
+        const access_token = localStorage.getItem("@solTech:access_token");
+        const access_ocpp_token = localStorage.getItem("@solTech:access_ocpp_token");
         const loginTime = localStorage.getItem("@solTech:loginTime");
-        const isAdmin = localStorage.getItem("@solTech:isAdmin");
+        const authkey = localStorage.getItem("@solTech:authkey");
 
-        if (token && username) {
+        if (access_token && access_ocpp_token) {
             return {
-                token,
-                username,
-                authkey: authkey ? authkey : "unlogged",
+                access_token,
+                access_ocpp_token,
                 loginTime: loginTime ? loginTime : "",
-                //subscription: subscription ? JSON.parse(subscription) : {},
-                isAdmin: isAdmin ? isAdmin : ""
+                authkey: authkey ? authkey : "unlogged",
             }
         }
 
@@ -59,15 +51,14 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     const signIn = useCallback(async (data: ISignInData) => {
         try {
             const response = await SoulTechServices.signIn(data);
-            const { token, username, isAdmin } = response.data;
+            const { access_token } = response.data.authToken;
+            const { access_token: access_ocpp_token } = response.data.authTokenOCPP;
             const loginTime = new Date().toISOString();
             localStorage.setItem("@solTech:authkey", "logged");
-            localStorage.setItem("@solTech:username", username);
-            localStorage.setItem("@solTech:token", token);
-            localStorage.setItem('@solTech:loginTime', loginTime);
-            //localStorage.setItem("@solTech:subscription", generalHelper.setUserPlan(subscription));
-            localStorage.setItem("@solTech:isAdmin", isAdmin);
-            setData({ token, username, loginTime, authkey: "logged", isAdmin });
+            localStorage.setItem("@solTech:access_token", access_token);
+            localStorage.setItem("@solTech:access_ocpp_token", access_ocpp_token);
+            localStorage.setItem("@solTech:loginTime", loginTime);
+            setData({ access_token, access_ocpp_token, loginTime, authkey: "logged" });
             return true;
         } catch (e) {
             console.log('Erro encontrado:', e);
@@ -77,17 +68,15 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
 
     const signOut = useCallback(() => {
         localStorage.removeItem("@solTech:authkey");
-        localStorage.removeItem("@solTech:username");
-        localStorage.removeItem("@solTech:token");
+        localStorage.removeItem("@solTech:access_ocpp_token");
+        localStorage.removeItem("@solTech:access_token");
         localStorage.removeItem('@solTech:loginTime');
-        //localStorage.removeItem("@solTech:subscription");
-        localStorage.removeItem("@solTech:isAdmin");
         setData({} as AuthState);
     }, []);
 
 
     return (
-        <AuthContext.Provider value={{ user: { username: data.username, authkey: data.authkey, token: data.token, loginTime: data.loginTime, isAdmin: data.isAdmin }, signIn, signOut }}>
+        <AuthContext.Provider value={{ user: { access_ocpp_token: data.access_ocpp_token, access_token: data.access_token, authkey: data.authkey, loginTime: data.loginTime }, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     );

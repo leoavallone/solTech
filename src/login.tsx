@@ -1,76 +1,113 @@
 import { useState } from "react";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { useAuth } from "./context/AuthContext";
-import "./Login.css";
+import { useNavigate } from "react-router-dom";
+import "./login.css";
+import Logo from './assets/2btech-logo.png'
 import { ISignInData } from "./interfaces/sign.interfaces";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
-  // Estados para armazenar as entradas do usuário
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [load, setLoad] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('Ocorreu um erro ao executar a operação, contate o suporte');
-  const { user, signIn } = useAuth();
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
   });
-  // Função que é chamada quando o formulário é enviado
-  const handleSignIn = async (data: ISignInData) => {
+
+  const handleSignIn = async () => {
     setLoad(true);
-    const loginAction = await signIn(data);
+    const loginAction = await signIn({email: username, password: password});
     if (!loginAction) {
       setLoad(false);
       setMessage("Usuário ou senha inválidos");
       setOpen(true);
+    }else{
+      setLoad(false);
+      navigate("/dashboard");
     }
-    setLoad(false);
   }
 
   return (
-    <div className="bgAuth">
-      <div className="container">
-        <form onSubmit={handleSubmit((data: any) => { handleSignIn(data) })}>
-          <h1>Acesse o sistema</h1>
-          <div className="input-field">
-            <input
-              type="text"
-              placeholder="E-mail"
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <FaUser className="icon" />
-          </div>
-          <div className="input-field">
-            <input
-              type="password"
-              placeholder="Senha"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <FaLock className="icon" />
-          </div>
+    <div className="loginContainer">
+      <img src={Logo} className="loginLogo" />
+      <div className="loginContainerRow">
+        <div className="leftSection">
+          <h1 className="loginTitle">Entrar</h1>
+          <div>
+          <form onSubmit={handleSubmit((data: any) => { handleSignIn() })}>
+            <div className="loginInputSection">
+              <input
+                type="text"
+                placeholder="E-mail:"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="loginInput"
+              />
+            </div>
 
-          <div className="recall-forget">
-            <label>
-              <input type="checkbox" />
-              Lembre de mim
-            </label>
-            <a href="#">Esqueceu sua senha?</a>
+            <div className="loginInputSection">
+              <input
+                type="password"
+                placeholder="Senha:"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="loginInput"
+              />
+            </div>
+
+            <div className="loginLinkSection">
+              <a className="loginLink" href="#">
+                Esqueceu sua senha?
+              </a>
+            </div>
+
+            <button
+              type="submit" 
+              onClick={() => handleSubmit} 
+              disabled={load}
+              className="loginButton"
+            >
+              {load ? 'AGUARDE...' : 'ENTRAR'}
+            </button>
+          </form>
           </div>
-          <button type="submit" onClick={() => handleSubmit}>Login</button>
-          <div className="signup-link">
-            <p>
-              Não tem uma conta? <a href="#">Registar</a>{" "}
-            </p>
-          </div> 
-        </form>
+        </div>
+
+        <div className="rightSection">
+          <h2 className="loginSubTitle">
+            Bem vindo a<br />2BCharge
+          </h2>
+
+          <p className="loginText">
+            Insira seus dados e comece sua mensurar<br /> suas recargas conosco!
+          </p>
+
+          <button 
+            onClick={() => navigate("/cadastro/usuarios")}
+            className="loginButtonSecoundary"
+          >
+            CRIAR CONTA
+          </button>
+
+          <div className="socialContainer">
+            <a href="#" className="socialButton">
+              <FaInstagram />
+            </a>
+            <a href="#" className="socialButton">
+              <FaWhatsapp />
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

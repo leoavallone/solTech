@@ -1,99 +1,148 @@
-.container {
-  width: 450px;
-  background:#87CEEB;
-  backdrop-filter: blur(10px);
-  border: 2px solid #fff;
-  border-radius: 10px;
-  padding: 40px;
-}
-
-.container h1 {
-  text-align: center;
-  font-size: 30px;
-  color: #fff
-;
-}
-
-.container .input-field {
-  position: relative;
-  width: 100%;
-  height: 50px;
-  margin: 30px auto;
-}
-
-.input-field input {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  outline: none;
-  border: 2px solid #fff;
-  border-radius: 40px;
-  font-size: 16px;
-  color: #fff;
-  padding: 20px 45px 20px 25px;
-}
-
-.input-field input::placeholder {
-  color: #fff;
-}
-
-.input-field .icon {
-  position: absolute;
-  right: 25px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px;
-  color: #fff;
-}
-
-.container .recall-forget {
+.loginContainer{
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2d5a5a 0%, #1a3d3d 50%, #0f2929 100%);
   display: flex;
-  justify-content: space-between;
-  font-size: 14.5px;
-  margin: -15px 0 15px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+  flex-direction: column;
 }
 
-.recall-forget label input {
-  accent-color: #1b1818;
-  margin-right: 4px;
+.loginLogo{
+  margin-bottom: 30px;
 }
 
-.recall-forget a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.recall-forget a:hover {
-  text-decoration: underline;
-}
-
-.container button {
+.loginContainerRow{
+  display: flex;
+  max-width: 900px;
   width: 100%;
-  height: 45px;
-  background: #0f2e5a;
-  border: none;
-  outline: none;
-  border-radius: 40px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  font-size: 16px;
-  color: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: '0 20px 60px rgba(0, 0, 0, 0.3)';
+  background: white;
+}
+
+.leftSection{
+  flex: 1;
+  padding: 60px 50px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginTitle{
+  font-size: 36px;
   font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 40px;
+  text-align: center;
   text-shadow: none;
 }
 
-.container .signup-link {
-  font-size: 14.5px;
-  text-align: center;
-  margin: 20px 0 15px;
+.loginInputSection{
+  margin-bottom: 20px;
 }
 
-.signup-link p a {
-  color: #fff;
+.loginInput{
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  background: #f5f5f5;
+  outline: none;
+  color: #333;
+  box-sizing: border-box;
+  text-shadow: none;
+}
+
+.loginLinkSection{
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+.loginLink{
+  color: #666;
+  font-size: 14px;
   text-decoration: none;
-  font-weight: 600;
+  text-shadow: none;
 }
 
-.signup-link p a:hover {
-  text-decoration: underline;
+.loginButton{
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.3s ease;
+  text-shadow: none;
+}
+
+.rightSection{
+  flex: 1;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.loginSubTitle{
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  line-Height: 1.2;
+  text-shadow: none;
+}
+
+.loginText{
+  font-size: 15px;
+  margin-bottom: 40px;
+  opacity: 0.95;
+  line-Height: 1.6;
+  text-shadow: none;
+}
+
+.loginButtonSecoundary{
+  padding: 12px 50px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4CAF50;
+  background: white;
+  border: 2px solid white;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: all 0.3s ease;
+  text-shadow: none;
+}
+
+.socialContainer{
+  display: flex;
+  gap: 15px;
+}
+
+.socialButton{
+  width: 45px;
+  height: 45px;
+  background: #4CAF50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4CAF50;
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-shadow: none;
 }

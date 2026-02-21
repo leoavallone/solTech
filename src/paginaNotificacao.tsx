@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
-import "./PaginaNotificacao.css";
+import "./paginaNotificacao.css";
 import apiClient from "./services/api";
 
 export type Notice = {
