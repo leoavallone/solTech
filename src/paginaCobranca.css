@@ -20,8 +20,9 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 16px;
-  background: var(--bg);
+  padding: 0;
+  background: transparent;
+  width: 100%;
 }
 
 /* Cabeçalho */
@@ -29,6 +30,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .cobranca-title {
@@ -45,13 +48,29 @@
 
 .cobranca-search {
   width: 320px;
-  max-width: 38vw;
+  max-width: 100%;
+  min-width: 200px;
   border: 1px solid var(--border);
   background: #fff;
   border-radius: var(--radius);
   padding: 10px 12px;
   font-size: 14px;
   outline: none;
+}
+
+@media (max-width: 768px) {
+  .cobranca-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .cobranca-actions {
+    flex-direction: column;
+  }
+  
+  .cobranca-search {
+    width: 100%;
+  }
 }
 
 /* Card */
@@ -62,8 +81,14 @@
 }
 
 /* Tabela */
+.table-wrap {
+  overflow-x: auto;
+  width: 100%;
+}
+
 .table {
   width: 100%;
+  min-width: 800px;
   border-collapse: collapse;
   font-size: 14px;
 }

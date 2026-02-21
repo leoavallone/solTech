@@ -1,17 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { FiMenu, FiBell, FiUser, FiLogOut, FiSettings } from "react-icons/fi";
+import { useEffect, useState } from "react";
 import { cloudOcpp } from "./services/api";
 import { useAuth } from "./context/AuthContext";
-import { useNavigate } from "react-router-dom";
+
+interface ChargePoint {
+  label?: string;
+  tipo?: string;
+  cliente?: string;
+  bootNotification?: {
+    chargePointVendor?: string;
+    chargePointModel?: string;
+    chargePointSerialNumber?: string;
+  };
+  statusNotification?: {
+    status?: string;
+  };
+  data?: string;
+}
 
 const Dashboard2BTech = () => {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const token = user.access_ocpp_token;
-  const [chargePoints, setChargePoints] = useState([]);
-  const [transactions, setTransactions] = useState([]);
+  const [chargePoints, setChargePoints] = useState<ChargePoint[]>([]);
   const [load, setLoad] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Dados de exemplo para os gráficos
   const revenueData = {
@@ -26,12 +36,6 @@ const Dashboard2BTech = () => {
     colors: ['#4CAF50', '#2196F3', '#F44336']
   };
 
-  // Dados exemplo da tabela
-  const tableData = [
-    { id: 'E/A-0000001', tipo: 'Null', cliente: 'Null', fornecedor: 'Null', modelo: 'Null', serial: 'Null', online: 'Não', data: 'Null', status: 'Null' },
-    { id: 'E/A-0000002', tipo: 'Null', cliente: 'Null', fornecedor: 'Null', modelo: 'Null', serial: 'Null', online: 'Não', data: 'Null', status: 'Null' },
-    { id: '298564', tipo: 'Null', cliente: 'Null', fornecedor: 'Null', modelo: 'Null', serial: 'Null', online: 'Não', data: 'Null', status: 'Null' },
-  ];
 
   async function fetchChargePoints() {
     
@@ -71,144 +75,11 @@ const Dashboard2BTech = () => {
     fetchChargePoints();
     fetchTransactionData();
     setLoad(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const Sidebar = () => (
-    <div style={{
-      width: sidebarOpen ? '250px' : '70px',
-      background: 'linear-gradient(180deg, #2d5a5a 0%, #1a3d3d 100%)',
-      height: '100vh',
-      position: 'fixed',
-      left: 0,
-      top: 0,
-      transition: 'width 0.3s ease',
-      zIndex: 1000,
-      display: 'flex',
-      flexDirection: 'column',
-      boxShadow: '2px 0 10px rgba(0,0,0,0.1)'
-    }}>
-      <div style={{
-        padding: '20px',
-        borderBottom: '1px solid rgba(255,255,255,0.1)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: sidebarOpen ? 'space-between' : 'center'
-      }}>
-        {sidebarOpen && (
-          <div style={{ color: 'white', fontSize: '20px', fontWeight: 'bold' }}>
-            2BCharge
-          </div>
-        )}
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            color: 'white',
-            cursor: 'pointer',
-            fontSize: '20px',
-            padding: '5px'
-          }}
-        >
-          <FiMenu />
-        </button>
-      </div>
 
-      <nav style={{ flex: 1, padding: '20px 0' }}>
-        {[
-          { icon: '📊', label: 'Dashboard', link: '/dashboard' },
-          { icon: '⚡', label: 'Estações', link: '/dashboard/estacoes' },
-          { icon: '💳', label: 'Transações', link: '/dashboard/transacoes' },
-          { icon: '📈', label: 'Cobranças', link: '/dashboard/cobranca' },
-          { icon: '⚙️', label: 'Notificações', link: '/dashboard/notificacoes' }
-        ].map((item, index) => (
-          <div
-            key={index}
-            style={{
-              padding: '15px 20px',
-              color: 'white',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '15px',
-              background: index === 0 ? 'rgba(76, 175, 80, 0.2)' : 'transparent',
-              borderLeft: index === 0 ? '3px solid #4CAF50' : '3px solid transparent',
-              transition: 'all 0.3s ease'
-            }}
-            onClick={() => navigate(item.link)}
-          >
-            <span style={{ fontSize: '20px' }}>{item.icon}</span>
-            {sidebarOpen && <span style={{ color: 'white' }}>{item.label}</span>}
-          </div>
-        ))}
-      </nav>
-
-      <div style={{
-        padding: '20px',
-        borderTop: '1px solid rgba(255,255,255,0.1)'
-      }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '15px',
-          color: 'white',
-          cursor: 'pointer'
-        }}>
-          <FiLogOut size={20} />
-          {sidebarOpen && <span>Sair</span>}
-        </div>
-      </div>
-    </div>
-  );
-
-  const Header = () => (
-    <div style={{
-      background: 'white',
-      padding: '20px 30px',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-      marginBottom: '30px'
-    }}>
-      <div>
-        <h1 style={{ margin: 0, fontSize: '24px', color: '#1a1a1a' }}>Dashboard</h1>
-        <p style={{ margin: '5px 0 0 0', color: '#666', fontSize: '14px' }}>
-          Bem-vindo de volta! Aqui está o resumo de hoje.
-        </p>
-      </div>
-      <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-        <div style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          background: '#f5f5f5',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer'
-        }}>
-          <FiBell size={20} color="#666" />
-        </div>
-        <div style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          background: '#4CAF50',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          color: 'white',
-          fontWeight: 'bold'
-        }}>
-          U
-        </div>
-      </div>
-    </div>
-  );
-
-  const StatsCard = ({ title, value, change, icon }) => (
+  const StatsCard = ({ title, value, change, icon }: { title: string; value: string; change: number; icon: string }) => (
     <div style={{
       background: 'white',
       borderRadius: '12px',
@@ -401,32 +272,36 @@ const Dashboard2BTech = () => {
             </tr>
           </thead>
           <tbody>
-            {chargePoints.map((row, index) => (
-              <tr key={index} style={{
-                borderBottom: '1px solid #f5f5f5',
-                transition: 'background 0.2s ease'
-              }}>
-                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#1a1a1a', fontWeight: '500' }}>{row.label}</td>
-                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.tipo ?? 'PADRAO'}</td>
-                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.cliente ?? 'INTERNO'}</td>
-                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.bootNotification.chargePointVendor}</td>
-                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.bootNotification.chargePointModel}</td>
-                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.bootNotification.chargePointSerialNumber ?? 'Indisponível'}</td>
-                <td style={{ padding: '15px 10px' }}>
-                  <span style={{
-                    padding: '4px 12px',
-                    borderRadius: '12px',
-                    fontSize: '12px',
-                    background: row.statusNotification.status === 'Available' ? '#e8f5e9' : '#ffebee',
-                    color: row.statusNotification.status === 'Available' ? '#2e7d32' : '#c62828'
-                  }}>
-                    {row.statusNotification.status === 'Available' ? 'Sim' : 'Não'}
-                  </span>
-                </td>
-                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.data}</td>
-                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.statusNotification.status}</td>
-              </tr>
-            ))}
+            {chargePoints.map((row, index) => {
+              const status = row.statusNotification?.status ?? 'Unknown';
+              const isAvailable = status === 'Available';
+              return (
+                <tr key={index} style={{
+                  borderBottom: '1px solid #f5f5f5',
+                  transition: 'background 0.2s ease'
+                }}>
+                  <td style={{ padding: '15px 10px', fontSize: '14px', color: '#1a1a1a', fontWeight: '500' }}>{row.label}</td>
+                  <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.tipo ?? 'PADRAO'}</td>
+                  <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.cliente ?? 'INTERNO'}</td>
+                  <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.bootNotification?.chargePointVendor ?? 'N/A'}</td>
+                  <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.bootNotification?.chargePointModel ?? 'N/A'}</td>
+                  <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.bootNotification?.chargePointSerialNumber ?? 'Indisponível'}</td>
+                  <td style={{ padding: '15px 10px' }}>
+                    <span style={{
+                      padding: '4px 12px',
+                      borderRadius: '12px',
+                      fontSize: '12px',
+                      background: isAvailable ? '#e8f5e9' : '#ffebee',
+                      color: isAvailable ? '#2e7d32' : '#c62828'
+                    }}>
+                      {isAvailable ? 'Sim' : 'Não'}
+                    </span>
+                  </td>
+                  <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.data ?? 'N/A'}</td>
+                  <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{status}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -446,18 +321,8 @@ const Dashboard2BTech = () => {
   );
 
   return (
-    <div style={{ display: 'flex', background: '#f8f9fa', minHeight: '100vh' }}>
-      <Sidebar />
-      
-      <div style={{
-        marginLeft: sidebarOpen ? '250px' : '70px',
-        flex: 1,
-        transition: 'margin-left 0.3s ease',
-        padding: '20px'
-      }}>
-        <Header />
-
-        {load ? (
+    <>
+      {load ? (
           <div style={{
             display: 'flex',
             justifyContent: 'center',
@@ -485,8 +350,7 @@ const Dashboard2BTech = () => {
             <DataTable />
           </>
         )}
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ const DetalhesEstacao = React.lazy(() => import("./detalhesEstacao"));
 const PaginaNotificacao = React.lazy(() => import("./paginaNotificacao"));
 const PaginaTransacoes = React.lazy(()=> import("./paginaTransacoes"));
 const PaginaCobranca = React.lazy(()=> import("./paginaCobranca"));
+const DashboardLayout = React.lazy(() => import("./components/DashboardLayout"));
 
 const withSuspense = (el: JSX.Element) => (
   <React.Suspense fallback={<p>Carregando…</p>}>{el}</React.Suspense>
@@ -18,12 +19,17 @@ const withSuspense = (el: JSX.Element) => (
 export const router = createBrowserRouter([
   { path: "/", element: withSuspense(<Login />) },
   { path: "/login", element: withSuspense(<Login />) },
-  { path: "/dashboard", element: withSuspense(<Dashboard />) },
-  { path: "/cadastro/usuarios", element: withSuspense(<CadastroUsuarios />) },
-  { path: "/cadastro/proprietarios", element: withSuspense(<CadastroProprietarios />) },
-  { path: "/dashboard/estacoes", element: withSuspense(<DetalhesEstacao />) },
-  { path: "/dashboard/notificacoes", element: withSuspense(<PaginaNotificacao />) },
-  { path: "/dashboard/transacoes", element: withSuspense(<PaginaTransacoes />) },
-  { path: "/dashboard/cobranca", element: withSuspense(<PaginaCobranca />) },
+  {
+    element: withSuspense(<DashboardLayout />),
+    children: [
+      { path: "/dashboard", element: withSuspense(<Dashboard />) },
+      { path: "/cadastro/usuarios", element: withSuspense(<CadastroUsuarios />) },
+      { path: "/cadastro/proprietarios", element: withSuspense(<CadastroProprietarios />) },
+      { path: "/dashboard/estacoes", element: withSuspense(<DetalhesEstacao />) },
+      { path: "/dashboard/notificacoes", element: withSuspense(<PaginaNotificacao />) },
+      { path: "/dashboard/transacoes", element: withSuspense(<PaginaTransacoes />) },
+      { path: "/dashboard/cobranca", element: withSuspense(<PaginaCobranca />) },
+    ]
+  },
   { path: "*", element: <h1 style={{padding:24}}>404 - Página não encontrada</h1> },
 ]);
