@@ -27,5 +27,3 @@ export const router = createBrowserRouter([
   { path: "/dashboard/cobranca", element: withSuspense(<PaginaCobranca />) },
   { path: "*", element: <h1 style={{padding:24}}>404 - Página não encontrada</h1> },
 ]);
-
-
