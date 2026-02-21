@@ -66,7 +66,7 @@ export default function PaginaNotificacao() {
 
   return (
     <div className="notificacao-container">
-      <h1 className="notificacao-title">Notice</h1>
+      <h1 className="notificacao-title">Notificações</h1>
       <div className="notificacao-card">
         <table className="notificacao-table">
           <thead>

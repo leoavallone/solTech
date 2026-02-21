@@ -194,7 +194,7 @@ export default function PaginaCobranca() {
     return (
         <div className="cobranca-page">
             <header className="cobranca-header">
-                <h1 className="cobranca-title">Invoice</h1>
+                <h1 className="cobranca-title">Cobranças</h1>
                 <div className="cobranca-actions">
                     <input
                         className="cobranca-search"

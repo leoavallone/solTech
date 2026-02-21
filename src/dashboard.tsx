@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FiMenu, FiBell, FiUser, FiLogOut, FiSettings } from "react-icons/fi";
 import { cloudOcpp } from "./services/api";
 import { useAuth } from "./context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard2BTech = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const token = user.access_ocpp_token;
   const [chargePoints, setChargePoints] = useState([]);
   const [transactions, setTransactions] = useState([]);
@@ -114,11 +116,11 @@ const Dashboard2BTech = () => {
 
       <nav style={{ flex: 1, padding: '20px 0' }}>
         {[
-          { icon: '📊', label: 'Dashboard' },
-          { icon: '⚡', label: 'Estações' },
-          { icon: '💳', label: 'Transações' },
-          { icon: '📈', label: 'Relatórios' },
-          { icon: '⚙️', label: 'Configurações' }
+          { icon: '📊', label: 'Dashboard', link: '/dashboard' },
+          { icon: '⚡', label: 'Estações', link: '/dashboard/estacoes' },
+          { icon: '💳', label: 'Transações', link: '/dashboard/transacoes' },
+          { icon: '📈', label: 'Cobranças', link: '/dashboard/cobranca' },
+          { icon: '⚙️', label: 'Notificações', link: '/dashboard/notificacoes' }
         ].map((item, index) => (
           <div
             key={index}
@@ -133,9 +135,10 @@ const Dashboard2BTech = () => {
               borderLeft: index === 0 ? '3px solid #4CAF50' : '3px solid transparent',
               transition: 'all 0.3s ease'
             }}
+            onClick={() => navigate(item.link)}
           >
             <span style={{ fontSize: '20px' }}>{item.icon}</span>
-            {sidebarOpen && <span>{item.label}</span>}
+            {sidebarOpen && <span style={{ color: 'white' }}>{item.label}</span>}
           </div>
         ))}
       </nav>
@@ -405,7 +408,7 @@ const Dashboard2BTech = () => {
               }}>
                 <td style={{ padding: '15px 10px', fontSize: '14px', color: '#1a1a1a', fontWeight: '500' }}>{row.label}</td>
                 <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.tipo ?? 'PADRAO'}</td>
-                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.cliente}</td>
+                <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.cliente ?? 'INTERNO'}</td>
                 <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.bootNotification.chargePointVendor}</td>
                 <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.bootNotification.chargePointModel}</td>
                 <td style={{ padding: '15px 10px', fontSize: '14px', color: '#666' }}>{row.bootNotification.chargePointSerialNumber ?? 'Indisponível'}</td>
