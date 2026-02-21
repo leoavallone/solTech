@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaInstagram, FaWhatsapp } from "react-icons/fa";
 import { useAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import "./login.css";
 import Logo from './assets/2btech-logo.png'
 import { ISignInData } from "./interfaces/sign.interfaces";
 import { useForm } from "react-hook-form";
@@ -93,7 +93,7 @@ const Login = () => {
           </p>
 
           <button 
-            onClick={() => console.log('Criar conta')}
+            onClick={() => navigate("/cadastro/usuarios")}
             className="loginButtonSecoundary"
           >
             CRIAR CONTA
