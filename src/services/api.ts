@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  //baseURL: 'https://soltech-back.onrender.com',
-  baseURL: 'http://localhost:3333'
+  baseURL: 'https://soltech-back.onrender.com',
+  //baseURL: 'http://localhost:3333'
 });
 
 export const loginClient = axios.create({
